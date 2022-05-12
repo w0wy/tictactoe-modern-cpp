@@ -3,19 +3,26 @@
 
 #include "Board.h"
 
+namespace
+{
+	constexpr int MaxMarks = 9;
+}
+
 namespace tictactoe
 {
 void Board::draw() const
 {
 	std::stringstream stream;
 	stream << "-   -   -\n";
-	for (auto iter = 1; iter < 10; iter++)
+	for (auto iter = 1; iter <= MaxMarks; iter++)
 	{
 		stream << "| ";
+
 		if (board_[iter-1] == Mark::None)
 			stream << iter;
 		else
 			stream << board_[iter-1];
+
 		if (iter % 3 == 0)
 		{
 			stream << "|\n";

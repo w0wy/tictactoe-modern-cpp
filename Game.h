@@ -10,7 +10,7 @@ class Game
 {
 public:
 	void run();
-	int getInput();
+	int getInput() const;
 	void update();
 private:
 	Board board_{};

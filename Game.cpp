@@ -15,21 +15,13 @@ void Game::run()
 	}
 
 	board_.draw();
-	switch(winnerMark_)
-	{
-		case Mark::None:
-			std::cout << "No winner, it's a tie!\n";
-		break;
-		case Mark::X:
-			std::cout << "Winner is player with mark X!\n";
-		break;
-		case Mark::O:
-			std::cout << "Winner is player with mark O!\n";
-		break;
-	}
+	if (winnerMark_ == Mark::None)
+		std::cout << "Game eneded. It's a tie!\n";
+	else
+		std::cout << "The winner is player with mark " << winnerMark_;
 }
 
-int Game::getInput()
+int Game::getInput() const
 {
 	std::cout << "Current turn is " << currentMark_ <<". Please enter position to add mark: ";
 	int position = 0;
@@ -48,7 +40,6 @@ int Game::getInput()
 void Game::update()
 {
 	auto board = board_.get();
-
 	for(const auto win : WinMatrix)
 	{
 		int xMark = 0, oMark = 0;
@@ -63,7 +54,8 @@ void Game::update()
 		if (oMark == 3) { currentMark_ = Mark::None; winnerMark_ = Mark::O; return; }
 	}
 
-	if (std::all_of(board.begin(), board.end(), [](const auto mark){ return mark != Mark::None; }))
+	if (std::all_of(board.begin(), board.end(),
+		[](const auto mark){ return mark != Mark::None; }))
 	{
 		currentMark_ = Mark::None;
 		return;
