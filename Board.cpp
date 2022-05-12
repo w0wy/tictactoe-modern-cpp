@@ -18,11 +18,13 @@ void Board::draw() const
 	{
 		stream << "| ";
 
+		// if there's no Mark yet, show the index of the box
 		if (board_[iter-1] == Mark::None)
 			stream << iter;
 		else
 			stream << board_[iter-1];
 
+		// if the index is 3, 6 or 9, just end the row
 		if (iter % 3 == 0)
 		{
 			stream << "|\n";
@@ -30,6 +32,7 @@ void Board::draw() const
 		}	
 	}
 	
+	// show the board to the screen
 	std::cout << stream.str();
 }
 
